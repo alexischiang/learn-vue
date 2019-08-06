@@ -13,7 +13,7 @@
   h1 {
     font-size: 100px;
     color: rgba(175, 47, 47, 0.7);
-    font-weight: 700;
+    font-weight: 500;
     margin: 20px;
   }
 }
