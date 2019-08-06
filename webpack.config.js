@@ -17,12 +17,12 @@ const config = {
         loader: "vue-loader"
       },
       {
-        test: /\.jsx$/,
-        loader: "babel-loader"
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        test: /\.jsx?$/, // Match both .js and .jsx files
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        query: {
+          presets: ['react']
+        }
       },
       // {
       //   test: /\.styl/,
@@ -42,7 +42,7 @@ const config = {
             name: "[name].[ext]"
           }
         }]
-      }
+      },
     ]
   },
   plugins: [
