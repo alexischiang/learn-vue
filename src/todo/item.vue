@@ -15,7 +15,10 @@ export default {
     }
   },
   methods: {
-    deleteTodo() {}
+    deleteTodo() {
+      console.log("first step");
+      this.$emit("del", this.todo.id);
+    }
   }
 };
 </script>
@@ -28,7 +31,7 @@ export default {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
   &:hover {
-    .destory:after {
+    .destroy:after {
       content: '×';
     }
   }
@@ -72,7 +75,7 @@ export default {
   }
 }
 
-.destory {
+.destroy {
   position: absolute;
   top: 0;
   right: 10px;

@@ -7,27 +7,62 @@
       placeholder="what to do next...?"
       @keyup.enter="addTodo"
     />
-    <Item :todo="todo"></Item>
+    <Item
+      :todo="todo"
+      v-for="todo in filteredTodos"
+      :key="todo.id"
+      @del="deleteTodo"
+    >{{todo.content}}</Item>
+    <tabs :filter="filter" :todos="todos" @toggleFilter="toggleFilter" @delete="deleteComp"></tabs>
   </section>
 </template>
 
 <script>
 import Item from "./item.vue";
+import tabs from "./tabs.vue";
+var id = 0;
 export default {
   data() {
     return {
-      todo: {
-        id: 0,
-        content: "Grab a coffee",
-        completed: false
-      }
+      todos: [],
+      filter: "all"
     };
   },
+  computed: {
+    filteredTodos() {
+      if (this.filter === "all") {
+        return this.todos;
+      } else if (this.filter === "active") {
+        return this.todos.filter(todo => todo.completed == false);
+      } else {
+        return this.todos.filter(todo => todo.completed == true);
+      }
+    }
+  },
   components: {
-    Item
+    Item,
+    tabs
   },
   methods: {
-    addTodo() {}
+    addTodo(e) {
+      this.todos.unshift({
+        id: id++,
+        completed: false,
+        content: e.target.value.trim()
+      });
+      e.target.value = "";
+    },
+    deleteTodo(id) {
+      console.log("second step");
+      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1);
+      console.log("third: finishing deleting");
+    },
+    toggleFilter(state) {
+      this.filter = state;
+    },
+    deleteComp() {
+      this.todos = this.todos.filter(todo => todo.completed == false);
+    }
   }
 };
 </script>
